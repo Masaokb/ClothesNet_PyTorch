@@ -1,0 +1,3 @@
+/dataset/*
+!/dataset/download.sh
+!/dataset/make_dataset_from_original.py
