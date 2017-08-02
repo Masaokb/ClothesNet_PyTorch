@@ -22,8 +22,9 @@ class DatasetFromChictopia(data.Dataset):
         self.padded_index_list = [mode_dict['padding'].format(index) for index in range(mode_dict['number'])]
         if transform:
             self.transform = transform
-        self.transform = transforms.Compose([transforms.ToTensor(),
-                                            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+        self.transform = transforms.Compose([transforms.Scale(256),
+                                             transforms.ToTensor(),
+                                             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
     def __getitem__(self, item):
         sketch_img = Image.open(join(self.image_dir, self.padded_index_list[item] + self.sketch_suffix))
