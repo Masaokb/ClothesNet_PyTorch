@@ -92,7 +92,7 @@ def train(epoch):
         netD.volatile = True
         output = netD(torch.cat((real_A, fake_b), 1))
         label.data.resize_(output.size()).fill_(real_label)
-        err_g = criterion(output, label) + opt.lamb * criterion_l1(fake_b, real_B)
+        err_g = criterion(output, label) + 100 * criterion_l1(fake_b, real_B)
         err_g.backward()
         d_x_gx_2 = output.data.mean()
         optimizerG.step()
