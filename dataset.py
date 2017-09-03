@@ -11,8 +11,8 @@ class DatasetFromChictopia(data.Dataset):
     mode_list = {'train': {'number': 23012, 'padding': '{0:05d}'},
                  'test': {'number': 2874, 'padding': '{0:04d}'},
                  'val': {'number': 2914, 'padding': '{0:04d}'}}
-    real_suffix = '_image\:png.png'
-    sketch_suffix = '_label_vis\:png.png'
+    real_suffix = '_image:png.png'
+    sketch_suffix = '_label_vis:png.png'
 
     def __init__(self, image_dir, mode: str, transform=None):
         assert mode in ['train', 'test', 'val']

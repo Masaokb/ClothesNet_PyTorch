@@ -12,15 +12,20 @@ from dataset import DatasetFromChictopia
 from models import G, D, weights_init
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--cuda', action='store_true', help='use cuda gpu')
+parser.add_argument('-c', '--cuda', action='store_true', help='use cuda gpu')
+parser.add_argument('-b', '--batch_size', help='select batch size(default is 16)', default=16)
+parser.add_argument('-n', '--num_workers', help='select batch size(default is 4)', default=4)
+parser.add_argument('-d', '--dir', help='image directory(default is ./Chictopia)', default='./Chictopia')
 opt = parser.parse_args()
 
 print('===> Loading datasets')
-root_path = 'ChictopiaPlus/'
+root_path = opt.dir
 train_set = DatasetFromChictopia(image_dir=root_path + 'train', mode='train')
 test_set = DatasetFromChictopia(image_dir=root_path + 'test', mode='test')
-training_data_loader = DataLoader(dataset=train_set, num_workers=16, batch_size=16, shuffle=True)
-testing_data_loader = DataLoader(dataset=test_set, num_workers=16, batch_size=16, shuffle=False)
+training_data_loader = DataLoader(dataset=train_set, num_workers=opt.num_workers, batch_size=opt.batch_size,
+                                  shuffle=True)
+testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.num_workers, batch_size=opt.batch_size,
+                                 shuffle=False)
 
 print('===> Building model')
 netG = G(3, 3, 64)
