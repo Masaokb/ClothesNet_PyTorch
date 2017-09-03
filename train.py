@@ -13,8 +13,8 @@ from models import G, D, weights_init
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-c', '--cuda', action='store_true', help='use cuda gpu')
-parser.add_argument('-b', '--batch_size', help='select batch size(default is 16)', default=16)
-parser.add_argument('-n', '--num_workers', help='select batch size(default is 4)', default=4)
+parser.add_argument('-b', '--batch_size', help='select batch size(default is 16)', default=16, type=int)
+parser.add_argument('-n', '--num_workers', help='select batch size(default is 4)', default=4, type=int)
 parser.add_argument('-d', '--dir', help='image directory(default is ./Chictopia)', default='./Chictopia')
 opt = parser.parse_args()
 
