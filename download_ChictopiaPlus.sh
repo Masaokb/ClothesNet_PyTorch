@@ -1,2 +1,3 @@
 wget http://files.is.tue.mpg.de/classner/gp/ChictopiaPlus.zip
-unzip ChictopiaPlus.zip
+mkdir ./ChictopiaPlus
+unzip ./ChictopiaPlus.zip -d ./ChictopiaPlus

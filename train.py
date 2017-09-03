@@ -16,7 +16,7 @@ parser.add_argument('--cuda', action='store_true', help='use cuda gpu')
 opt = parser.parse_args()
 
 print('===> Loading datasets')
-root_path = 'Chictopia/'
+root_path = 'ChictopiaPlus/'
 train_set = DatasetFromChictopia(image_dir=root_path + 'train', mode='train')
 test_set = DatasetFromChictopia(image_dir=root_path + 'test', mode='test')
 training_data_loader = DataLoader(dataset=train_set, num_workers=16, batch_size=16, shuffle=True)
@@ -62,8 +62,9 @@ def train(epoch):
         # (1) Update D network: maximize log(D(x,y)) + log(1 - D(x,G(x)))
         ###########################
         # train with real
-        netD.volatile = False
-        netD.zero_grad()
+        netG.eval()
+        netD.train()
+        optimizerD.zero_grad()
         real_a_cpu, real_b_cpu = batch[0], batch[1]
         real_A.data.resize_(real_a_cpu.size()).copy_(real_a_cpu)
         real_B.data.resize_(real_b_cpu.size()).copy_(real_b_cpu)
@@ -88,8 +89,9 @@ def train(epoch):
         ############################
         # (2) Update G network: maximize log(D(x,G(x))) + L1(y,G(x))
         ###########################
-        netG.zero_grad()
-        netD.volatile = True
+        netG.train()
+        netD.eval()
+        optimizerG.zero_grad()
         output = netD(torch.cat((real_A, fake_b), 1))
         label.data.resize_(output.size()).fill_(real_label)
         err_g = criterion(output, label) + 100 * criterion_l1(fake_b, real_B)
