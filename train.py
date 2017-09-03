@@ -20,8 +20,8 @@ opt = parser.parse_args()
 
 print('===> Loading datasets')
 root_path = opt.dir
-train_set = DatasetFromChictopia(image_dir=root_path + 'train', mode='train')
-test_set = DatasetFromChictopia(image_dir=root_path + 'test', mode='test')
+train_set = DatasetFromChictopia(image_dir=os.path.join(root_path, 'train'), mode='train')
+test_set = DatasetFromChictopia(image_dir=os.path.join(root_path, 'test'), mode='test')
 training_data_loader = DataLoader(dataset=train_set, num_workers=opt.num_workers, batch_size=opt.batch_size,
                                   shuffle=True)
 testing_data_loader = DataLoader(dataset=test_set, num_workers=opt.num_workers, batch_size=opt.batch_size,
